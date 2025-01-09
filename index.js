@@ -35,6 +35,7 @@ async function run() {
 
     const database = client.db("CoffeeShop");
     const coffeeCollection = database.collection("coffee");
+    const usersCollection = database.collection("users");
 
 
 
@@ -53,19 +54,12 @@ async function run() {
 
 
 
-
-
-
-
     app.post("/addcoffee", async(req, res)=>{
       const result = await coffeeCollection.insertOne(req.body);
       res.send(result)
     })
 
-
-
-
-  
+ 
     app.put("/coffee/:id", async(req, res)=>{
       const { id } = req.params; 
       const updatedCoffee = req.body;
@@ -78,11 +72,6 @@ async function run() {
 
 
 
-
-
-
-
-
     app.delete("/delete/:id", async(req, res)=>{
       const { id } = req.params;
       const result = await coffeeCollection.deleteOne({_id: new ObjectId(id)});
@@ -92,7 +81,13 @@ async function run() {
 
 
 
-    
+    //USer Related Api's 
+    app.post("/addusers", async(req, res)=>{
+      const result = await usersCollection.insertOne(req.body);
+      res.send(result)
+    })
+
+
 
 
 
